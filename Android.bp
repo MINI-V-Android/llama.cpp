@@ -19,6 +19,26 @@ cc_library_static {
 }
 
 cc_library_static {
+    name: "libggml-cpu-c-miniv",
+    vendor: true,
+    srcs: ["ggml/src/ggml-cpu/ggml-cpu.c"],
+    export_include_dirs: ["ggml/include"],
+    local_include_dirs: ["ggml/src", "ggml/src/ggml-cpu"],
+    cflags: ["-Wno-error", "-DNDEBUG"],
+}
+
+cc_library_static {
+    name: "libggml-cpu-cpp-miniv",
+    vendor: true,
+    srcs: ["ggml/src/ggml-cpu/ggml-cpu.cpp"],
+    export_include_dirs: ["ggml/include"],
+    local_include_dirs: ["ggml/src", "ggml/src/ggml-cpu"],
+    cflags: ["-fexceptions", "-frtti", "-Wno-error", "-DNDEBUG"],
+    rtti: true,
+    cpp_std: "c++17",
+}
+
+cc_library_static {
     name: "libllama-miniv",
     vendor: true,
 
@@ -35,8 +55,6 @@ cc_library_static {
         "ggml/src/gguf.cpp",
 
         // ggml-cpu backend
-        "ggml/src/ggml-cpu/ggml-cpu.c",
-        "ggml/src/ggml-cpu/ggml-cpu.cpp",
         "ggml/src/ggml-cpu/ops.cpp",
         "ggml/src/ggml-cpu/vec.cpp",
         "ggml/src/ggml-cpu/quants.c",
@@ -57,6 +75,8 @@ cc_library_static {
     static_libs: [
         "libggml-c-miniv",
         "libggml-cpp-miniv",
+        "libggml-cpu-c-miniv",
+        "libggml-cpu-cpp-miniv",
     ],
 
     export_include_dirs: [
