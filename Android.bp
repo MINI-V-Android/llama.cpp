@@ -72,7 +72,7 @@ cc_library_static {
         "src/models/*.cpp",
     ],
 
-    static_libs: [
+    whole_static_libs: [
         "libggml-c-miniv",
         "libggml-cpp-miniv",
         "libggml-cpu-c-miniv",
