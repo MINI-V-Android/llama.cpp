@@ -1,10 +1,21 @@
+cc_defaults {
+    name: "ggml-miniv-common-defaults",
+    vendor: true,
+    cflags: [
+        "-Wno-error",
+        "-DNDEBUG",
+        "-DGGML_VERSION=\"0.17.0-miniv\"",
+        "-DGGML_COMMIT=\"unknown\"",
+    ],
+}
+
 cc_library_static {
     name: "libggml-c-miniv",
     vendor: true,
     srcs: ["ggml/src/ggml.c"],
     export_include_dirs: ["ggml/include"],
     local_include_dirs: ["ggml/src"],
-    cflags: ["-Wno-error", "-DNDEBUG"],
+    defaults: ["ggml-miniv-common-defaults"],
 }
 
 cc_library_static {
@@ -13,7 +24,8 @@ cc_library_static {
     srcs: ["ggml/src/ggml.cpp"],
     export_include_dirs: ["ggml/include"],
     local_include_dirs: ["ggml/src"],
-    cflags: ["-fexceptions", "-frtti", "-Wno-error", "-DNDEBUG"],
+    defaults: ["ggml-miniv-common-defaults"],
+    cflags: ["-fexceptions", "-frtti"],
     rtti: true,
     cpp_std: "c++17",
 }
@@ -24,7 +36,7 @@ cc_library_static {
     srcs: ["ggml/src/ggml-cpu/ggml-cpu.c"],
     export_include_dirs: ["ggml/include"],
     local_include_dirs: ["ggml/src", "ggml/src/ggml-cpu"],
-    cflags: ["-Wno-error", "-DNDEBUG"],
+    defaults: ["ggml-miniv-common-defaults"],
 }
 
 cc_library_static {
@@ -33,7 +45,8 @@ cc_library_static {
     srcs: ["ggml/src/ggml-cpu/ggml-cpu.cpp"],
     export_include_dirs: ["ggml/include"],
     local_include_dirs: ["ggml/src", "ggml/src/ggml-cpu"],
-    cflags: ["-fexceptions", "-frtti", "-Wno-error", "-DNDEBUG"],
+    defaults: ["ggml-miniv-common-defaults"],
+    cflags: ["-fexceptions", "-frtti"],
     rtti: true,
     cpp_std: "c++17",
 }
