@@ -1,10 +1,29 @@
 cc_library_static {
+    name: "libggml-c-miniv",
+    vendor: true,
+    srcs: ["ggml/src/ggml.c"],
+    export_include_dirs: ["ggml/include"],
+    local_include_dirs: ["ggml/src"],
+    cflags: ["-Wno-error", "-DNDEBUG"],
+}
+
+cc_library_static {
+    name: "libggml-cpp-miniv",
+    vendor: true,
+    srcs: ["ggml/src/ggml.cpp"],
+    export_include_dirs: ["ggml/include"],
+    local_include_dirs: ["ggml/src"],
+    cflags: ["-fexceptions", "-frtti", "-Wno-error", "-DNDEBUG"],
+    rtti: true,
+    cpp_std: "c++17",
+}
+
+cc_library_static {
     name: "libllama-miniv",
     vendor: true,
 
     srcs: [
         // ggml core
-        "ggml/src/ggml.c",
         "ggml/src/ggml-alloc.c",
         "ggml/src/ggml-quants.c",
         "ggml/src/ggml-backend.cpp",
@@ -13,7 +32,6 @@ cc_library_static {
         "ggml/src/ggml-backend-meta.cpp",
         "ggml/src/ggml-opt.cpp",
         "ggml/src/ggml-threading.cpp",
-        "ggml/src/ggml.cpp",
         "ggml/src/gguf.cpp",
 
         // ggml-cpu backend
@@ -34,6 +52,11 @@ cc_library_static {
 
         "src/*.cpp",
         "src/models/*.cpp",
+    ],
+
+    static_libs: [
+        "libggml-c-miniv",
+        "libggml-cpp-miniv",
     ],
 
     export_include_dirs: [
